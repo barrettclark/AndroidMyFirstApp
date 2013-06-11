@@ -14,6 +14,12 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		
+		// You can also restore activity state with the savedInstanceState,
+		// or you can use onRestoreInstanceState
+		// if (savedInstanceState != null) {
+		// } else {
+		// }
 	}
 
 	@Override
@@ -33,4 +39,73 @@ public class MainActivity extends Activity {
 	  startActivity(intent);
 	}
 
+	/**
+	 * Stop animations or other ongoing actions that could consume CPU.
+	 * Commit unsaved changes, but only if users expect such changes to be
+		permanently saved when they leave 
+	 * Release system resources, such as broadcast receivers, handles to sensors
+		(like GPS), or any resources that may affect battery life while your
+		activity is paused and the user does not need them
+	 */
+	@Override
+	public void onPause() {
+		super.onPause();
+	}
+	
+	/**
+	 * The system calls this method every time your activity comes into the
+		foreground, including when it's created for the first time
+	 * Resume (initialize) anything paused in onPause()
+	 */
+	@Override
+	public void onResume() {
+		super.onResume();
+	}
+	
+	@Override
+	public void onDestroy() {
+		// this is not always required, but we need to kill things that we background processed
+		super.onDestroy();
+		
+		// Stop method tracing that the activity started in onCreate()
+		android.os.Debug.stopMethodTracing();
+	}
+	
+	@Override
+	protected void onStop() {
+		super.onStop();
+		
+		// save state in whatever you were doing
+	}
+	
+	@Override
+	protected void onStart() {
+		super.onStart();
+		
+		// The activity is either being restarted or started for the first time
+	}
+
+	@Override
+	protected void onRestart() {
+		super.onRestart();
+		
+		// Activity being restarted from stopped state
+	}
+	
+	@Override
+	public void onSaveInstanceState(Bundle savedInstanceState) {
+		// save state
+		// savedInstanceState.putInt(STATE_SCORE, mCurrentScore);
+		
+		// Always call the superclass so it can save the view hierarchy state
+	    super.onSaveInstanceState(savedInstanceState);
+	}
+	
+	@Override
+	public void onRestoreInstanceState(Bundle savedInstanceState) {
+		super.onRestoreInstanceState(savedInstanceState);
+		
+		// Restore state members from saved instance
+	}
+	
 }
